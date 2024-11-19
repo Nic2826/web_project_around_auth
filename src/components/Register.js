@@ -6,12 +6,13 @@ import InfoTooltip from './InfoTooltip';
 import Test from './Test';
 import { register } from '../utils/auth';
 
-export default function Register({ isOpen, onClose, onUpdateUser, props }) {
+export default function Register({  onUpdateUser }) {
 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const navigate = useNavigate();
 
@@ -30,17 +31,24 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
     setPassword(e.target.value);
   }
 
+  function closePopup() {
+   setIsInfoTooltipOpen(false);
+   navigate('/');
+  }
+  
   async function handleSubmit(e) {
     // Evita que el navegador navegue hacia la dirección del formulario
     e.preventDefault();
-    // navigate('/');
 
     try {
       await register(email, password);
-      console.log("usuario registrado", email, password);
       setError(false);
+      setIsInfoTooltipOpen(true);
+      
 
-      navigate('/');
+      // navigate('/');
+      console.log('Registrado');
+
     }
     catch (err) {
       setError(true);
@@ -86,7 +94,12 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
 
       {error && <span className="error-message">Este usuario ya existe</span>}
 
-      <InfoTooltip />
+      <InfoTooltip 
+        isOpen={isInfoTooltipOpen} 
+        onClose={closePopup}
+        name="correct"
+        text="¡Correcto! ya estás registrado."/>
+                
     </Test>
   )
 }

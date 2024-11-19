@@ -4,6 +4,10 @@
     justify-content: center;
     transition: all 200ms ease;
   }
+
+  .popup-tool_open {
+    visibility: visible;
+  }
   
   .popup__overlay-tool {
     background-color: rgba(0, 0, 0, 0.5);
@@ -44,7 +48,7 @@
     text-align: center;
     color: #000000;
   }
-
+ 
   .popup__icon-correct{
     background-image: url(../images/correct.png);
   }

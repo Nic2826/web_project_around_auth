@@ -10,6 +10,7 @@ import { login } from '../utils/auth';
 export default function Login({ onUpdateUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState(false);
   
@@ -30,18 +31,23 @@ export default function Login({ onUpdateUser }) {
     setPassword(e.target.value);
   }
 
+  function closePopup() {
+    setIsInfoTooltipOpen(false);
+    
+   }
+
   async function handleSubmit(e) {
     // Evita que el navegador navegue hacia la dirección del formulario
     e.preventDefault();
 
     try {
       await login(email, password);
-      console.log("usuario iniciado", email, password);
       setError(false);
       navigate('/');
     }
     catch (err) {
       setError(true);
+  setIsInfoTooltipOpen(true);
     }
     
 
@@ -88,7 +94,11 @@ export default function Login({ onUpdateUser }) {
       <span className="popup__input-error text-input-name-error"></span>
       {error && <span className="error-message">El correo o la contraseña son incorrectos</span>}
 
-      <InfoTooltip />
+      <InfoTooltip 
+        isOpen={isInfoTooltipOpen} 
+        onClose={closePopup}
+        name="error"
+        text="Uy, algo salió mal.Por favor inténtalo de nuevo."/>
     </Test>
   )
 }

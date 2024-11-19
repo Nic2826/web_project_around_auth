@@ -1,21 +1,23 @@
 import close from '../images/close.png';
+// import PopUpWithForm from './PopUpWithForm';
+export default function InfoTooltip(props) {
 
-export default function InfoTooltip({onClose, isOpen}) {
+    
     return (
-        <div className={`popup-tool  ${isOpen ? "popup_open" : ""}`} id="tooltip">
+
+
+        <div className={`popup-tool  ${props.isOpen ? "popup-tool_open" : ""}`} id="tooltip">
             <div className="popup__overlay-tool"></div>
             <div className="popup__content-tool">
             <img 
             src={close} alt="Close icon" 
             className="popup__close-icon popup__close-icon-place" 
-            onClick={onClose}/>
+            onClick={props.onClose}/>
             <img 
-            alt="icon" 
-            className="popup__icon popup__icon-error"
-            onClick={onClose}/>
-            <p className="popup__text">¡Correcto! 
-                <br></br>
-                ya estás registrado.</p>
+            alt={`icon-${props.name}`} 
+            className={`popup__icon  popup__icon-${props.name}`}
+            onClick={props.onClose}/>
+            <p className="popup__text">{props.text}</p>
             </div>           
         </div>
     )

@@ -21,6 +21,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  
   const [selectedCard, setSelectedCard] = useState({});
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [cardToDelete, setCardToDelete] = useState(null);
@@ -74,7 +75,6 @@ function App() {
     async function getValues() {
       const response = await api.getUserInfo();
       setCurrentUser(response)
-      console.log(response);
     }
     getValues();
   }, []);
@@ -107,6 +107,7 @@ function App() {
     api.updateUserInfo(userData).then((newUser) => {
       console.log('Usuario actualizado:', newUser); // Verificar la respuesta
       setCurrentUser(newUser);
+      closeAllPopups();
     })
   }
 
@@ -114,6 +115,7 @@ function App() {
     api.updateAvatar(avatar).then((newAvatar) => {
       console.log('Avatar actualizado:', newAvatar);
       setCurrentUser(newAvatar);
+      closeAllPopups();
     })
   }
 
@@ -129,6 +131,7 @@ function App() {
   return (
     <div className="body">
       <div className="page__container">
+        
         <CurrentUserContext.Provider value={currentUser}>
           <BrowserRouter>
             <Routes>   
@@ -141,7 +144,8 @@ function App() {
                onCardClick={handleCardClick}
                cards={cards}
                onCardLike={handleCardLike}
-               onCardDelete={handleDeleteClick} />} />
+               onCardDelete={handleDeleteClick} />
+               } />
                
 
             </Routes>
