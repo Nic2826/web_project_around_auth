@@ -6,7 +6,7 @@ import InfoTooltip from './InfoTooltip';
 import Test from './Test';
 import { register } from '../utils/auth';
 
-export default function Register({  onUpdateUser }) {
+export default function Register() {
 
 
   const [email, setEmail] = useState("");
@@ -44,17 +44,11 @@ export default function Register({  onUpdateUser }) {
       await register(email, password);
       setError(false);
       setIsInfoTooltipOpen(true);
-      
-
-      // navigate('/');
       console.log('Registrado');
-
     }
     catch (err) {
       setError(true);
     }
-
-
   }
 
   return (
@@ -62,7 +56,6 @@ export default function Register({  onUpdateUser }) {
       headerTitle="Iniciar Sesión"
       authTitle="Regístrate"
       onSubmit={handleSubmit}
-      onUpdateUser={onUpdateUser}
       buttonText="Regístrate"
       authFooter="¿Ya eres miembro? Inicia sesión aquí"
     >

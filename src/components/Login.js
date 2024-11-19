@@ -7,7 +7,7 @@ import Test from './Test';
 import { login } from '../utils/auth';
 
 
-export default function Login({ onUpdateUser }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
@@ -24,6 +24,7 @@ export default function Login({ onUpdateUser }) {
     if (currentUser.email !== undefined && currentUser.password !== undefined) {
       setEmail(currentUser.email);
       setPassword(currentUser.password);
+      console.log("estos son los DATOS",currentUser.email, currentUser.password);
     }
   }, [currentUser]);
 
@@ -33,7 +34,6 @@ export default function Login({ onUpdateUser }) {
 
   function closePopup() {
     setIsInfoTooltipOpen(false);
-    
    }
 
   async function handleSubmit(e) {
@@ -42,20 +42,14 @@ export default function Login({ onUpdateUser }) {
 
     try {
       await login(email, password);
-      setError(false);
       navigate('/');
+      setIsInfoTooltipOpen(false);
     }
     catch (err) {
-      setError(true);
+      setError(false);
   setIsInfoTooltipOpen(true);
     }
-    
-
-    // Pasa los valores de los componentes gestionados al controlador externo
-    //  onUpdateUser({
-    //   email,
-    //   password,
-    // });
+  
   }
 
   return (
@@ -63,7 +57,6 @@ export default function Login({ onUpdateUser }) {
       headerTitle="Regístrate"
       authTitle="Inicia Sesión"
       onSubmit={handleSubmit}
-      onUpdateUser={onUpdateUser}
       buttonText="Inicia sesión"
       authFooter="¿Aún no eres miembro? Regístrate aquí"
     >

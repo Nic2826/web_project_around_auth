@@ -17,4 +17,3 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
   return token ? <Component {...rest} /> : <Navigate to="/signin" />;
   
 }
-// El componente que quieres proteger
