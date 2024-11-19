@@ -1,5 +1,5 @@
 import close from '../images/close.png';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Header from './Header.js';
@@ -10,7 +10,6 @@ export default function Main(props) {
 
   const navigate = useNavigate();
   const [isHeaderClicked, setIsHeaderClicked] = useState(false);
-  const [email, setEmail] = useState("");
   const currentUser = useContext(CurrentUserContext);
 
   function handleChangeRoute() {
@@ -19,12 +18,6 @@ export default function Main(props) {
     console.log('clicked on cerrar sesion');
   }
 
-  useEffect(() => {
-    if(currentUser.email !== undefined) {
-      setEmail(currentUser.email);
-      console.log("este es el EMAIL",currentUser.email);
-    }
-    }, [currentUser]);
 
   return (
     <main className="content">
@@ -33,7 +26,7 @@ export default function Main(props) {
         onClick={handleChangeRoute}
         isHeaderClicked={isHeaderClicked}
         headerTitle="Cerrar sesión"
-        headerEmail={email} />
+        headerEmail={currentUser.name} />
 
       <section className="profile">
         <div className="profile__image" onClick={props.onEditAvatarClick}>
