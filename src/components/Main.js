@@ -1,5 +1,5 @@
 import close from '../images/close.png';
-import { useContext, useState} from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Header from './Header.js';
@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Main(props) {
 
-  const currentUser = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [isHeaderClicked, setIsHeaderClicked] = useState(false);
+  const [email, setEmail] = useState("");
+  const currentUser = useContext(CurrentUserContext);
 
   function handleChangeRoute() {
     navigate('/signin');
@@ -18,21 +19,28 @@ export default function Main(props) {
     console.log('clicked on cerrar sesion');
   }
 
+  useEffect(() => {
+    if(currentUser.email !== undefined) {
+      setEmail(currentUser.email);
+      console.log("este es el EMAIL",currentUser.email);
+    }
+    }, [currentUser]);
+
   return (
     <main className="content">
 
-      <Header 
-      onClick={handleChangeRoute}
-      isHeaderClicked={isHeaderClicked}
-        headerTitle="Cerrar sesión" 
-        headerEmail={currentUser.name}/>
+      <Header
+        onClick={handleChangeRoute}
+        isHeaderClicked={isHeaderClicked}
+        headerTitle="Cerrar sesión"
+        headerEmail={email} />
 
       <section className="profile">
         <div className="profile__image" onClick={props.onEditAvatarClick}>
           <img className="profile__avatar"
             alt="foto de perfil"
             name="avatar"
-            src={currentUser.avatar}
+            src={currentUser.avatar}  
           />
           <div className="profile__avatar-edit"></div>
         </div>
@@ -68,18 +76,18 @@ export default function Main(props) {
       </div>
 
       <div className="cards">
-          {props.cards.map((card) => (
-            <Card 
-              key={card._id} 
-              name={card.name} 
-              link={card.link} 
-              likes={card.likes} 
-              onCardClick={props.onCardClick}
-              card={card}
-              onCardLike = {props.onCardLike}
-              onCardDelete = {props.onCardDelete}
-            />
-          ))}
+        {props.cards.map((card) => (
+          <Card
+            key={card._id}
+            name={card.name}
+            link={card.link}
+            likes={card.likes}
+            onCardClick={props.onCardClick}
+            card={card}
+            onCardLike={props.onCardLike}
+            onCardDelete={props.onCardDelete}
+          />
+        ))}
       </div>
 
     </main>

@@ -75,6 +75,7 @@ function App() {
     async function getValues() {
       const response = await api.getUserInfo();
       setCurrentUser(response)
+      console.log("esta es la funcion getuserifo",response);
     }
     getValues();
   }, []);
@@ -125,8 +126,6 @@ function App() {
       closeAllPopups();
     })
   }
-
-
 
   return (
     <div className="body">
