@@ -43,3 +43,11 @@
     text-align: center;
     color: #ffffff;
 }
+
+.error-message{
+    font-family: Inter;
+
+    font-weight: 400;
+    color: #FF0000;
+    font-size: 12px;
+}

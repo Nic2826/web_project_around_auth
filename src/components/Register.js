@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import InfoTooltip from './InfoTooltip';
 import Test from './Test';
+import { register } from '../utils/auth';
 
 export default function Register({ isOpen, onClose, onUpdateUser, props }) {
 
@@ -10,6 +12,7 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const currentUser = useContext(CurrentUserContext);
+  // const navigate = useNavigate();
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -26,19 +29,18 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     // Evita que el navegador navegue hacia la dirección del formulario
     e.preventDefault();
+    // navigate('/');
 
-    // Pasa los valores de los componentes gestionados al controlador externo
-    onUpdateUser({
-      email,
-      password,
-    });
+     await register(email, password);
+    console.log("usuario registrado", email, password);
+
   }
 
-  return (    
-   <Test
+  return (
+    <Test
       headerTitle="Iniciar Sesión"
       authTitle="Regístrate"
       onSubmit={handleSubmit}

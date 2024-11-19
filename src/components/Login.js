@@ -1,17 +1,18 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip';
 import Test from './Test';
-import {login} from '../utils/auth';
+import { login } from '../utils/auth';
 
 
 export default function Login({ onUpdateUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const currentUser = useContext(CurrentUserContext);
-  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  // const navigate = useNavigate();
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -28,13 +29,25 @@ export default function Login({ onUpdateUser }) {
     setPassword(e.target.value);
   }
 
- async function handleSubmit(e) {
+  async function handleSubmit(e) {
     // Evita que el navegador navegue hacia la dirección del formulario
     e.preventDefault();
-    navigate('/');
 
-    const data = await login(email, password);
-    console.log(data);
+    try {
+      await login(email, password);
+      console.log("usuario iniciado", email, password);
+      setError(false);
+    }
+    catch (err) {
+      setError(true);
+    }
+    // navigate('/');
+
+    // Pasa los valores de los componentes gestionados al controlador externo
+    //  onUpdateUser({
+    //   email,
+    //   password,
+    // });
   }
 
   return (
@@ -71,6 +84,7 @@ export default function Login({ onUpdateUser }) {
       />
       <div className="popup__line"></div>
       <span className="popup__input-error text-input-name-error"></span>
+      {error && <span className="error-message">El correo o la contraseña son incorrectos</span>}
 
       <InfoTooltip />
     </Test>
