@@ -7,6 +7,7 @@ import Header from './Header.js';
 export default function Main(props) {
 
   const currentUser = useContext(CurrentUserContext);
+  console.log(currentUser);
 
   return (
     <main className="content">

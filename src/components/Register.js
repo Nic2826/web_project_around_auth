@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import InfoTooltip from './InfoTooltip';
 import Test from './Test';
@@ -11,8 +11,9 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const currentUser = useContext(CurrentUserContext);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -34,8 +35,17 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
     e.preventDefault();
     // navigate('/');
 
-     await register(email, password);
-    console.log("usuario registrado", email, password);
+    try {
+      await register(email, password);
+      console.log("usuario registrado", email, password);
+      setError(false);
+
+      navigate('/');
+    }
+    catch (err) {
+      setError(true);
+    }
+
 
   }
 
@@ -73,6 +83,8 @@ export default function Register({ isOpen, onClose, onUpdateUser, props }) {
       />
       <div className="popup__line"></div>
       <span className="popup__input-error text-input-name-error"></span>
+
+      {error && <span className="error-message">Este usuario ya existe</span>}
 
       <InfoTooltip />
     </Test>

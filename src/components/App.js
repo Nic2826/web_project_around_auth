@@ -1,6 +1,4 @@
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -15,6 +13,7 @@ import AddPlacePopup from './AddPlacePopup.js';
 import ConfirmDeletePopup from './ConfirmDeletePopup.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import ProtectedRoute from './ProtectedRoute.js';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -95,9 +94,6 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
-
-  
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -128,27 +124,26 @@ function App() {
     })
   }
 
+
+
   return (
     <div className="body">
       <div className="page__container">
         <CurrentUserContext.Provider value={currentUser}>
           <BrowserRouter>
             <Routes>   
-              <Route path="/signin" element={
-                <Login 
-                // onUpdateUser={handleUpdateUser}
-                />} />
+              <Route path="/signin" element={<Login />} />
               <Route path="/signup" element={<Register />} />
-              <Route path="/" element={
-                <Main
-                  onEditAvatarClick={handleEditAvatarClick}
-                  onEditProfileClick={handleEditProfileClick}
-                  onAddPlaceClick={handleAddPlaceClick}
-                  onCardClick={handleCardClick}
-                  cards={cards}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleDeleteClick}
-                />} />
+              <Route path="/" element={<ProtectedRoute component={Main}
+               onEditAvatarClick={handleEditAvatarClick}
+               onEditProfileClick={handleEditProfileClick}
+               onAddPlaceClick={handleAddPlaceClick}
+               onCardClick={handleCardClick}
+               cards={cards}
+               onCardLike={handleCardLike}
+               onCardDelete={handleDeleteClick} />} />
+               
+
             </Routes>
           </BrowserRouter>
 

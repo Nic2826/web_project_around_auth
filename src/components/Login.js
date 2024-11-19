@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip';
 import Test from './Test';
 import { login } from '../utils/auth';
@@ -12,7 +12,8 @@ export default function Login({ onUpdateUser }) {
   const [password, setPassword] = useState("");
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState(false);
-  // const navigate = useNavigate();
+  
+  const navigate = useNavigate();
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -37,11 +38,12 @@ export default function Login({ onUpdateUser }) {
       await login(email, password);
       console.log("usuario iniciado", email, password);
       setError(false);
+      navigate('/');
     }
     catch (err) {
       setError(true);
     }
-    // navigate('/');
+    
 
     // Pasa los valores de los componentes gestionados al controlador externo
     //  onUpdateUser({
