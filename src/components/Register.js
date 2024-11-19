@@ -13,6 +13,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isHeaderClicked, setIsHeaderClicked] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const navigate = useNavigate();
 
@@ -44,11 +45,16 @@ export default function Register() {
       await register(email, password);
       setError(false);
       setIsInfoTooltipOpen(true);
-      console.log('Registrado');
     }
     catch (err) {
       setError(true);
     }
+  }
+
+  function handleChangeRoute() {
+    navigate('/signin');
+    setIsHeaderClicked(true);
+    console.log('clicked on login');
   }
 
   return (
@@ -58,6 +64,8 @@ export default function Register() {
       onSubmit={handleSubmit}
       buttonText="Regístrate"
       authFooter="¿Ya eres miembro? Inicia sesión aquí"
+      onClick={handleChangeRoute}
+      isHeaderClicked={isHeaderClicked}
     >
 
       <input

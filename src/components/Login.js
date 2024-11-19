@@ -11,6 +11,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isHeaderClicked, setIsHeaderClicked] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState(false);
   
@@ -49,7 +50,12 @@ export default function Login() {
       setError(false);
   setIsInfoTooltipOpen(true);
     }
+  }
   
+  function handleChangeRoute() {
+    navigate('/signup');
+    setIsHeaderClicked(true);
+    console.log('clicked Register');
   }
 
   return (
@@ -59,6 +65,8 @@ export default function Login() {
       onSubmit={handleSubmit}
       buttonText="Inicia sesión"
       authFooter="¿Aún no eres miembro? Regístrate aquí"
+      onClick={handleChangeRoute}
+      isHeaderClicked={isHeaderClicked}
     >
 
       <input

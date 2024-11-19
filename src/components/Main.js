@@ -1,16 +1,32 @@
 import close from '../images/close.png';
-import { useContext } from 'react';
+import { useContext, useState} from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Header from './Header.js';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Main(props) {
 
   const currentUser = useContext(CurrentUserContext);
+  const navigate = useNavigate();
+  const [isHeaderClicked, setIsHeaderClicked] = useState(false);
+
+  function handleChangeRoute() {
+    navigate('/signin');
+    setIsHeaderClicked(true);
+    console.log('clicked on cerrar sesion');
+  }
 
   return (
     <main className="content">
-      <Header headerTitle="Cerrar sesión" headerEmail={currentUser.name}/>
+
+      <Header 
+      onClick={handleChangeRoute}
+      isHeaderClicked={isHeaderClicked}
+        headerTitle="Cerrar sesión" 
+        headerEmail={currentUser.name}/>
+
       <section className="profile">
         <div className="profile__image" onClick={props.onEditAvatarClick}>
           <img className="profile__avatar"

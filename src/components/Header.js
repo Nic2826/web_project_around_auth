@@ -7,7 +7,7 @@ export default function Header(props) {
           <img className="header__logo" src={logo} alt="logo Around the U.S." />
           <div className="header__container-text">
           <p className="header__title-email">{props.headerEmail}</p>
-          <button className="header__title" >{props.headerTitle}</button>
+          <button className="header__title" onClick={props.onClick} >{props.headerTitle}</button>
           </div>      
           </div>
         <span className="header__divider"></span>

@@ -6,7 +6,7 @@ export default function Test(props) {
  
     return (
         <div >
-            <Header headerTitle={props.headerTitle} />
+            <Header headerTitle={props.headerTitle} onClick={props.onClick}/>
             <p className="auth__title" >{props.authTitle}</p>
             <form
                 className='auth__form'
