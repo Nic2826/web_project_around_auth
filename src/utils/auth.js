@@ -1,6 +1,6 @@
 export async function register(email, password) {
     
-    const response = await fetch('http://localhost:5000/users/signup',{
+    const response = await fetch('https://register.nomoreparties.co/signup',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export async function register(email, password) {
 
 export async function login(email, password) {
 
-    const response = await fetch('http://localhost:5000/users/signin',{
+    const response = await fetch('https://register.nomoreparties.co/signin',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
