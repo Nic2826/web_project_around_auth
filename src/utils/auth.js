@@ -1,6 +1,6 @@
 export async function register(email, password) {
     
-    const response = await fetch('https://register.nomoreparties.co/signup',{
+    const response = await fetch(' https://se-register-api.en.tripleten-services.com/v1/signup',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export async function register(email, password) {
 
 export async function login(email, password) {
 
-    const response = await fetch('https://register.nomoreparties.co/signin',{
+    const response = await fetch(' https://se-register-api.en.tripleten-services.com/v1/signin',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
